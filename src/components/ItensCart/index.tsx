@@ -2,8 +2,8 @@
 import { X } from "lucide-react";
 
 // -> Utils
-import { cn } from "../../../../utils/cn";
-import { formatCurrency } from "../../../../utils/formatCurrency";
+import { cn } from "../../utils/cn";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 // -> Types
 interface IItensCartProps {

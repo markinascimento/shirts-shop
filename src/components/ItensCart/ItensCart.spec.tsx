@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import { ItensCart } from "./";
+import { ItensCart } from ".";
 
 describe("<ItensCart />", () => {
   test("Should not be render on screen", () => {

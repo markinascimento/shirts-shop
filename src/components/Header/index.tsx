@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import { Moon, ShoppingCart, Sun } from "lucide-react";
 
 // -> Components
-import { ItensCart } from "./components/ItensCart";
+import { ItensCart } from "../ItensCart";
 
 export function Header() {
   const { setTheme, theme } = useTheme();
