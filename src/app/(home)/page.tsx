@@ -2,7 +2,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
   return (
-    <div className="w-full h-full dark:bg-red-5000">
+    <div className="w-full h-full p-4">
       <h1> Hey, its working! </h1>
       <ModeToggle />
 
