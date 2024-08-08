@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/providers/theme-provider";
 
+import { Header } from "@/components/Header";
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
@@ -27,7 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="flex flex-col flex-1 gap-1 w-full h-full max-w-[1044px] px-2 mx-auto  overflow-hidden relative">
+            <Header />
+
+            <div className="flex flex-1 mb-1 overflow-auto">{children}</div>
+          </div>
         </ThemeProvider>
       </body>
     </html>
