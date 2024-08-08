@@ -1,15 +1,34 @@
 "use client";
+// -> ReactJS
+import { useCallback, useState } from "react";
+
 // -> Theme lib
 import { useTheme } from "next-themes";
 
 // -> Icons lib
 import { Moon, ShoppingCart, Sun } from "lucide-react";
 
+// -> Components
+import { ItensCart } from "./components/ItensCart";
+
 export function Header() {
   const { setTheme, theme } = useTheme();
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openItensCart = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const closeItensCart = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
-    <header className="flex w-full min-h-16 items-center justify-between py-2 border-b-2 border-zinc-100 dark:border-zinc-900">
+    <header
+      data-testid="header"
+      className="flex w-full min-h-16 items-center justify-between py-2 border-b-2 border-zinc-100 dark:border-zinc-800"
+    >
       <h1> Header </h1>
 
       <section className="flex items-center gap-4">
@@ -26,12 +45,15 @@ export function Header() {
         </button>
 
         <button
+          data-testid="button-cart"
           type="button"
-          onClick={() => console.log("cart")}
+          onClick={openItensCart}
           className="flex items-center justify-center w-10 h-10"
         >
           <ShoppingCart />
         </button>
+
+        <ItensCart isOpen={isOpen} onClose={closeItensCart} />
       </section>
     </header>
   );
