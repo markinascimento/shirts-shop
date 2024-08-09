@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 
 // -> NextJS
+import Image from "next/image";
 import Link from "next/link";
 
 // -> Theme lib
@@ -13,6 +14,9 @@ import { Moon, ShoppingCart, Sun } from "lucide-react";
 
 // -> Components
 import { ItensCart } from "../ItensCart";
+
+// -> Icons logo
+import logoIcon from "@/assets/icon.svg";
 
 export function Header() {
   const { setTheme, theme } = useTheme();
@@ -33,7 +37,7 @@ export function Header() {
       className="flex w-full min-h-16 items-center justify-between py-2 border-b-2 border-zinc-100 dark:border-zinc-800"
     >
       <Link href="/">
-        <h1> Header </h1>
+        <Image src={logoIcon} alt="Logo da loja" width={64} height={64} />
       </Link>
 
       <section className="flex items-center gap-4">
