@@ -2,6 +2,9 @@
 // -> ReactJS
 import { useCallback, useState } from "react";
 
+// -> NextJS
+import Link from "next/link";
+
 // -> Theme lib
 import { useTheme } from "next-themes";
 
@@ -29,19 +32,19 @@ export function Header() {
       data-testid="header"
       className="flex w-full min-h-16 items-center justify-between py-2 border-b-2 border-zinc-100 dark:border-zinc-800"
     >
-      <h1> Header </h1>
+      <Link href="/">
+        <h1> Header </h1>
+      </Link>
 
       <section className="flex items-center gap-4">
         <button
           type="button"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="flex items-center justify-center w-10 h-10"
+          suppressHydrationWarning={true}
         >
-          {theme === "dark" ? (
-            <Sun suppressHydrationWarning />
-          ) : (
-            <Moon suppressHydrationWarning />
-          )}
+          {theme === "light" && <Moon suppressHydrationWarning={true} />}
+          {theme === "dark" && <Sun suppressHydrationWarning={true} />}
         </button>
 
         <button
