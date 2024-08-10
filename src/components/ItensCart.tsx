@@ -1,20 +1,27 @@
+'use client'
+
+// NextJS
+import Image from "next/image";
+
 // -> Icons lib
 import { X, XCircle } from "lucide-react";
 
-// -> Utils
+// -> ContexAPI
 import { useShoes } from "@/hooks/useShoes";
-import Image from "next/image";
-import { cn } from "../../utils/cn";
-import { formatCurrency } from "../../utils/formatCurrency";
 
-// -> Types
-interface IItensCartProps {
-  isOpen: boolean;
-  onClose(): void;
-}
+// -> Utils
+import { cn } from "../utils/cn";
+import { formatCurrency } from "../utils/formatCurrency";
 
-export function ItensCart({ isOpen, onClose }: IItensCartProps) {
-  const { cartItems, handleRemoveFromCart } = useShoes()
+
+export function ItensCart() {
+  const { 
+    cartItems, 
+    isCartOpen,
+    closeItensCart,
+    handleFinishBuy, 
+    handleRemoveFromCart 
+  } = useShoes()
 
   const totalValue = cartItems.reduce((prev, item) => {
     return prev + (item.product.price * item.quantity)
@@ -26,13 +33,13 @@ export function ItensCart({ isOpen, onClose }: IItensCartProps) {
       className={cn(
         `flex flex-col flex-1 fixed w-[75vw] h-full max-w-[368px] right-[-100%] top-0 bg-zinc-100 dark:bg-zinc-800 
         duration-700 pb-2 shadow-2xl z-10`,
-        isOpen && "right-0"
+        isCartOpen && "right-0"
       )}
     >
       <header className="flex items-center justify-end p-2 w-full h-12">
         <button
           type="button"
-          onClick={onClose}
+          onClick={closeItensCart}
           className="flex items-center justify-center w-10 h-10 rounded shadow-md bg-white dark:bg-zinc-900"
         >
           <X />
@@ -84,9 +91,19 @@ export function ItensCart({ isOpen, onClose }: IItensCartProps) {
       </main>
 
       {cartItems.length > 0 && (
-        <footer className="flex items-center justify-between p-2 w-full h-12 ">
-          <strong role="strong"> Total </strong>
-          <span className="text-sm"> {formatCurrency(totalValue)} </span>
+        <footer className="flex flex-col items-start justify-between p-2 w-full h-20">
+          <div className="flex w-full items-center justify-between">
+            <strong role="strong"> Total </strong>
+            <span className="text-sm"> {formatCurrency(totalValue)} </span>
+          </div>
+
+          <button 
+            type="button" 
+            className="flex items-center justify-center bg-lime-500 w-full h-8 rounded-full"
+            onClick={handleFinishBuy}  
+          >
+            <span className="text-sm text-zinc-900 font-medium"> Finalizar compra </span>
+          </button>
         </footer>
       )}
     </aside>

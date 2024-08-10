@@ -2,11 +2,18 @@
 // -> ReactJS
 import { createContext, useCallback, useState, type ReactNode } from "react";
 
+// -> NextJS
+import { useRouter } from "next/navigation";
+
 // -> Types
 import type { CarItemDTO } from "@/dtos/CarItemDTO";
 import type { ProductDTO } from "@/dtos/ProductDTO";
 interface IShoesContextProps {
+  isCartOpen: boolean;
   cartItems: CarItemDTO[]
+  openItensCart(): void;
+  closeItensCart(): void;
+  handleFinishBuy(): void;
   handleAddToCart(product: ProductDTO): void;
   handleRemoveFromCart(product: ProductDTO): void;
 }
@@ -14,7 +21,18 @@ interface IShoesContextProps {
 export const ShoesContext = createContext({} as IShoesContextProps) 
 
 export function ShoesProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CarItemDTO[]>([]);
+
+  const openItensCart = useCallback(() => {
+    setIsCartOpen(true);
+  }, []);
+
+  const closeItensCart = useCallback(() => {
+    setIsCartOpen(false);
+  }, []);
 
   const handleAddToCart = useCallback((product: ProductDTO) => {
     setCartItems(prevState => {
@@ -63,11 +81,21 @@ export function ShoesProvider({ children }: { children: ReactNode }) {
     });
   }, [])
 
+  const handleFinishBuy = useCallback(() => {
+    closeItensCart();
+    setCartItems([])
+    router.push('/finish')
+  }, [router, closeItensCart]);
+
   return(
     <ShoesContext.Provider
       value={{
         cartItems,
+        isCartOpen,
+        closeItensCart,
+        openItensCart,
         handleAddToCart,
+        handleFinishBuy,
         handleRemoveFromCart
       }}
     >

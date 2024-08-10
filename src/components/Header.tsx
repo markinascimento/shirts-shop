@@ -1,7 +1,6 @@
 "use client";
 
 // -> ReactJS
-import { useCallback, useState } from "react";
 
 // -> NextJS
 import Image from "next/image";
@@ -13,26 +12,18 @@ import { useTheme } from "next-themes";
 // -> Icons lib
 import { Moon, ShoppingCart, Sun } from "lucide-react";
 
+// -> ContextAPI
+import { useShoes } from "@/hooks/useShoes";
+
 // -> Components
-import { ItensCart } from "../ItensCart";
+import { ItensCart } from "./ItensCart";
 
 // -> Icons logo
 import logoIcon from "@/assets/icon.svg";
-import { useShoes } from "@/hooks/useShoes";
 
 export function Header() {
-  const { cartItems } = useShoes()
+  const { cartItems, openItensCart } = useShoes()
   const { setTheme, theme } = useTheme();
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const openItensCart = useCallback(() => {
-    setIsOpen(true);
-  }, []);
-
-  const closeItensCart = useCallback(() => {
-    setIsOpen(false);
-  }, []);
 
   return (
     <header
@@ -72,7 +63,7 @@ export function Header() {
           )}
         </button>
 
-        <ItensCart isOpen={isOpen} onClose={closeItensCart} />
+        <ItensCart />
       </section>
     </header>
   );
