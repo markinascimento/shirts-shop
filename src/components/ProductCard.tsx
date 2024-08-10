@@ -1,19 +1,17 @@
 // -> NextJS
-import Link from "next/link";
+import Image from "next/image";
 
 // -> Utils
-import type { ProductDTO } from "@/dtos/ProductDTO";
 import { formatCurrency } from "@/utils/formatCurrency";
-import Image from "next/image";
+
+// -> Types
+import type { ProductDTO } from "@/dtos/ProductDTO";
 
 export function ProductCard({ product }: { product: ProductDTO }) {
   return (
-    <Link
-      href={`/product/${product.id}`}
-      className="flex flex-col w-80 h-[408px]"
-    >
+    <div className="flex flex-col w-72 h-96">
       <section
-        className="bg-zinc-100 flex flex-1 items-center justify-center p-2 dark:bg-zinc-800 
+        className="flex flex-1 items-center justify-center p-2  
         rounded-md hover:scale-105 transition-transform duration-300"
       >
         <Image
@@ -22,14 +20,20 @@ export function ProductCard({ product }: { product: ProductDTO }) {
           priority
           width={288}
           height={176}
-          className="w-full h-[320px] rounded-lg"
+          className="w-full h-[300px] rounded-lg"
         />
       </section>
 
-      <section className="flex items-start justify-between h-14 p-2">
-        <strong className="text-sm font-medium"> {product.title} </strong>
-        <span className="text-sm"> {formatCurrency(product.price)} </span>
+      <section className="flex flex-col items-end justify-between h-16 p-2">
+        <div className="flex w-full items-center justify-between">
+          <strong className="text-xs font-medium"> {product.title} </strong>
+          <span className="text-sm"> {formatCurrency(product.price)} </span>
+        </div>
+
+        <button className="bg-lime-500 px-2 py-1 rounded-full">
+          <span className="text-sm"> Add to cart </span>
+        </button>
       </section>
-    </Link>
+    </div>
   );
 }

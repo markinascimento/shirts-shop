@@ -1,15 +1,11 @@
+// -> API
+import ShopServices from "@/services/ShopServices";
+
 // -> Components
 import { ProductCard } from "@/components/ProductCard";
-import type { ProductDTO } from "@/dtos/ProductDTO";
-
-async function getProducts(): Promise<ProductDTO[]> {
-  return fetch("https://react-shop-backend.liara.run/products")
-    .then((result) => result)
-    .then((data) => data.json());
-}
 
 export default async function Home() {
-  const result = await getProducts();
+  const result = await ShopServices.getAllProducts();
 
   return (
     <div className="flex flex-col items-center w-full ">
