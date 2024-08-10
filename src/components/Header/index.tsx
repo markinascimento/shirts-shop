@@ -1,4 +1,5 @@
 "use client";
+
 // -> ReactJS
 import { useCallback, useState } from "react";
 
@@ -17,8 +18,10 @@ import { ItensCart } from "../ItensCart";
 
 // -> Icons logo
 import logoIcon from "@/assets/icon.svg";
+import { useShoes } from "@/hooks/useShoes";
 
 export function Header() {
+  const { cartItems } = useShoes()
   const { setTheme, theme } = useTheme();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -55,9 +58,18 @@ export function Header() {
           data-testid="button-cart"
           type="button"
           onClick={openItensCart}
-          className="flex items-center justify-center w-10 h-10"
+          className="flex items-center justify-center w-10 h-10 relative"
         >
           <ShoppingCart />
+
+          {cartItems.length > 0 && (
+            <span 
+              className="flex items-center justify-center bg-red-600 absolute 
+              text-[10px] h-5 w-5 rounded-full -top-1 right-px font-medium"
+            >
+              {cartItems.length}
+            </span>
+          )}
         </button>
 
         <ItensCart isOpen={isOpen} onClose={closeItensCart} />

@@ -1,5 +1,11 @@
+
+'use client'
+
 // -> NextJS
 import Image from "next/image";
+
+// -> ContextAPI
+import { useShoes } from "@/hooks/useShoes";
 
 // -> Utils
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -8,6 +14,8 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import type { ProductDTO } from "@/dtos/ProductDTO";
 
 export function ProductCard({ product }: { product: ProductDTO }) {
+  const { handleAddToCart } = useShoes()
+
   return (
     <div className="flex flex-col w-72 h-96">
       <section
@@ -30,7 +38,11 @@ export function ProductCard({ product }: { product: ProductDTO }) {
           <span className="text-sm"> {formatCurrency(product.price)} </span>
         </div>
 
-        <button className="bg-lime-500 px-2 py-1 rounded-full">
+        <button 
+          type="button" 
+          onClick={() => handleAddToCart(product)} 
+          className="bg-lime-500 px-2 py-1 rounded-full"
+        >
           <span className="text-sm"> Add to cart </span>
         </button>
       </section>
