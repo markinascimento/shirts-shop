@@ -22,8 +22,10 @@ import { ItensCart } from "./ItensCart";
 import logoIcon from "@/assets/icon.svg";
 
 export function Header() {
-  const { cartItems, openItensCart } = useShoes()
+  const { cartItems, openItensCart } = useShoes();
   const { setTheme, theme } = useTheme();
+
+  const currentTheme = theme ?? "dark";
 
   return (
     <header
@@ -39,10 +41,8 @@ export function Header() {
           type="button"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="flex items-center justify-center w-10 h-10"
-          suppressHydrationWarning={true}
         >
-          {theme === "light" && <Moon suppressHydrationWarning={true} />}
-          {theme === "dark" && <Sun suppressHydrationWarning={true} />}
+          {currentTheme === "dark" ? <Sun /> : <Moon />}
         </button>
 
         <button
@@ -54,7 +54,7 @@ export function Header() {
           <ShoppingCart />
 
           {cartItems.length > 0 && (
-            <span 
+            <span
               className="flex items-center justify-center bg-red-600 absolute 
               text-[10px] h-5 w-5 rounded-full -top-1 right-px font-medium"
             >

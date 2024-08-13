@@ -9,7 +9,9 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col items-center w-full ">
-      <h1> Hey, its working! </h1>
+      <h1 className="w-full text-center text-xl font-semibold lg:text-2xl my-4">
+        Find everything you need in one place, with offers that surprise!
+      </h1>
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {result.map((product) => (

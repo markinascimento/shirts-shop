@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 // NextJS
 import Image from "next/image";
@@ -13,19 +13,18 @@ import { useShoes } from "@/hooks/useShoes";
 import { cn } from "../utils/cn";
 import { formatCurrency } from "../utils/formatCurrency";
 
-
 export function ItensCart() {
-  const { 
-    cartItems, 
+  const {
+    cartItems,
     isCartOpen,
     closeItensCart,
-    handleFinishBuy, 
-    handleRemoveFromCart 
-  } = useShoes()
+    handleFinishBuy,
+    handleRemoveFromCart,
+  } = useShoes();
 
   const totalValue = cartItems.reduce((prev, item) => {
-    return prev + (item.product.price * item.quantity)
-  }, 0)
+    return prev + item.product.price * item.quantity;
+  }, 0);
 
   return (
     <aside
@@ -56,12 +55,12 @@ export function ItensCart() {
           </div>
         ) : (
           cartItems.map(({ product, quantity }) => (
-            <div 
+            <div
               key={product._id}
               className="flex w-full items-center justify-between h-16 p-1 rounded-lg relative"
             >
               <div className="flex items-center gap-1">
-                <Image 
+                <Image
                   src={product.images[0]}
                   alt="Imagem do produto"
                   height={54}
@@ -70,15 +69,18 @@ export function ItensCart() {
                 />
                 <p>
                   <span className="text-xs font-medium"> {product.title} </span>
-                  <small className="block text-xs font-medium"> {quantity}x </small>
+                  <small className="block text-xs font-medium">
+                    {" "}
+                    {quantity}x{" "}
+                  </small>
                 </p>
               </div>
-  
-              <strong className="text-sm font-semibold"> 
-                {formatCurrency(quantity * product.price)} 
+
+              <strong className="text-sm font-semibold">
+                {formatCurrency(quantity * product.price)}
               </strong>
-  
-              <button 
+
+              <button
                 type="button"
                 onClick={() => handleRemoveFromCart(product)}
                 className="absolute right-0 top-0 w-5 h-5"
@@ -97,12 +99,14 @@ export function ItensCart() {
             <span className="text-sm"> {formatCurrency(totalValue)} </span>
           </div>
 
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="flex items-center justify-center bg-lime-500 w-full h-8 rounded-full"
-            onClick={handleFinishBuy}  
+            onClick={handleFinishBuy}
           >
-            <span className="text-sm text-zinc-900 font-medium"> Finalizar compra </span>
+            <span className="text-sm text-zinc-900 font-medium">
+              Finalize purchase
+            </span>
           </button>
         </footer>
       )}
